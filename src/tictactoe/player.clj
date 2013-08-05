@@ -15,7 +15,10 @@
 	(marker [this] (:marker this))
 	(move [this board]))
 
-; (defn computer[value])
+(defn create-player [type marker]
+  (case type
+    :human (tictactoe.player.Human. marker)
+    :computer (tictactoe.player.Computer. marker)))
 
 (defmulti move (fn [this board] (str (type this))))
 

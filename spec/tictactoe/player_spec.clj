@@ -4,7 +4,7 @@
 
 (describe "Player"
   (context "human"
-    (def human (tictactoe.player.Human. "X"))
+    (def human (create-player :human "X"))
 
     (it "marker is the value passed in"
       (should= "X" (:marker human)))
@@ -18,7 +18,7 @@
         (should= 3 (move human nil)))))
 
   (context "computer"
-    (def computer (tictactoe.player.Computer. "O"))
+    (def computer (create-player :computer "O"))
 
     (it "marker is the value passed in"
       (should= "O" (:marker computer)))
