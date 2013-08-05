@@ -1,6 +1,7 @@
 (ns tictactoe.game
   (:require [tictactoe.rules :refer :all]
-            [tictactoe.board :refer :all]))
+            [tictactoe.board :refer :all]
+            [tictactoe.player :refer :all]))
 
 (defn display-board[board]
   (doseq [row (partition (board-size board) (replace-nil-with-number board))]

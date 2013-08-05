@@ -6,8 +6,8 @@
   (context "human"
     (def human (tictactoe.player.Human. "X"))
 
-    (it "value is the value passed in"
-      (should= "X" (:value human)))
+    (it "marker is the value passed in"
+      (should= "X" (:marker human)))
 
     (it "asks player for a move"
       (with-redefs [read-line (constantly "0")]
@@ -20,8 +20,8 @@
   (context "computer"
     (def computer (tictactoe.player.Computer. "O"))
 
-    (it "value is the value passed in"
-      (should= "O" (:value computer)))
+    (it "marker is the value passed in"
+      (should= "O" (:marker computer)))
 
     (it "returns first move"
         (should= 2 (move computer ["X" "X" nil nil])))
