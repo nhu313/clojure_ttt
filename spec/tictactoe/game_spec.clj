@@ -1,5 +1,6 @@
 (ns tictactoe.game-spec
   (:require [speclj.core :refer :all]
+            [tictactoe.board :refer :all]
             [tictactoe.game :refer :all]))
 
 (describe "Tic Tac Toe Game"
@@ -8,7 +9,6 @@
 (def empty-board (create-board 3))
 (def draw-board (vec (range 9)))
 (def winning-board [player1 player1 player2 player2 player1 player2 player1 player2 player1])
-(def board-size 3)
 
   (defn test-output-string
     ([expected func]
@@ -19,9 +19,6 @@
     (should= true (.contains (with-out-str (func arg1 arg2)) expected))))
 
 (context "board"
-  (it "creates an empty board with specific size"
-    (should= [nil nil nil nil] (create-board 2))))
-
   (context "display board"
     (defn test-display-board[expected board]
       (should= expected (with-out-str (display-board board))))
@@ -33,16 +30,7 @@
       (test-display-board "| 0 | O |\n| X | 3 |\n" [nil player2 player1 nil]))
 
     (it "prints 3x3 board"
-      (test-display-board "| 0 | 1 | 2 |\n| 3 | 4 | 5 |\n| 6 | 7 | 8 |\n" (create-board board-size))))
-
-  (context "marking the board"
-    (it "for an empty square"
-      (should= [nil player1 nil nil nil nil nil nil nil] (mark-board empty-board 1 player1)))
-
-    ; (it "marks a square that is already marked")
-    ; (it "gives an input that is smaller than the first square")
-    ; (it "gives an input that is greater than the last square")
-    )
+      (test-display-board "| 0 | 1 | 2 |\n| 3 | 4 | 5 |\n| 6 | 7 | 8 |\n" (create-board 3)))))
 
 (it "gets user move"
   (should= 3 (with-in-str "3" (user-input))))
@@ -50,26 +38,27 @@
 (context "starts game"
   (it "displays a welcome message"
     (with-redefs [play (constantly empty-board)]
-      (test-output-string "Welcome to Tic Tac Toe!" start board-size)))
+      (test-output-string "Welcome to Tic Tac Toe!" start 3)))
 
   (it "calls play with a new board"
     (with-redefs [play (fn[board value] (should= board empty-board) board)]
-      (with-out-str start board-size)))
+      (with-out-str start 3)))
+
   (it "displays game type"
     (with-redefs [play (constantly empty-board)]
       (test-output-string "1 - Human vs Computer\n2 - Computer vs Human\n3 - Human vs Human\n4 - Computer vs Computer"
-                          start board-size)
+                          start 3)
     ))
       )
 
 (context "ends game"
   (it "displays winner when one is available"
     (with-redefs [play (constantly winning-board)]
-      (test-output-string (str player1 " wins!") start board-size)))
+      (test-output-string (str player1 " wins!") start 3)))
 
   (it "notifies draw"
     (with-redefs [play (constantly draw-board)]
-      (test-output-string "Draw!" start board-size))))
+      (test-output-string "Draw!" start 3))))
 
 (context "play"
   (it "doesn't do anything when the game is over"

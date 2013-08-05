@@ -1,14 +1,6 @@
 (ns tictactoe.game
-  (:require [tictactoe.rules :refer :all ]))
-
-(defn create-board[size]
-  (vec (repeat (* size size) nil)))
-
-(defn- board-size[board]
-  (int (java.lang.Math/sqrt (count board))))
-
-(defn replace-nil-with-number[board]
-  (vec (map-indexed (fn [i item] (if item item i)) board)))
+  (:require [tictactoe.rules :refer :all]
+            [tictactoe.board :refer :all]))
 
 (defn display-board[board]
   (doseq [row (partition (board-size board) (replace-nil-with-number board))]
@@ -16,9 +8,6 @@
 
 (defn user-input[]
   (Integer. (read-line)))
-
-(defn mark-board[board move value]
-  (assoc board move value))
 
 (defn make-move[board player]
   (println (format "%s, please make a move:" player))
