@@ -62,8 +62,10 @@
     (test-output-string "| 0 | 1 | 2 |\n| 3 | 4 | 5 |\n| 6 | 7 | 8 |\n" game-loop draw-board player1))
 
   (it "marks the board with player move"
-      (should= [player1 player1 player1 nil nil nil nil nil nil]
-          (with-in-str "0\n" (game-loop [nil player1 player1 nil nil nil nil nil nil] (create-players :human :human)))))
+    (let [expected-board [player1 player1 player1 nil nil nil nil nil nil]
+          input-board [nil player1 player1 nil nil nil nil nil nil]]
+      (should= expected-board
+          (with-in-str "0\n" (game-loop input-board (create-players :human :human))))))
 
   (it "marks player 2 moves after player 1 moves"
     (let [expected-board [player1 player2 player2 player2 player1 player2 player1 player1 player2]

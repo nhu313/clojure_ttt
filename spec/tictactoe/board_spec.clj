@@ -41,5 +41,4 @@
     (should= (list 1 2) (available-moves [player1 nil nil player1])))
 
   (it "is nothing when the board is full"
-    (should= (list) (available-moves full-board)))
-)
+    (should= (list) (available-moves full-board))))

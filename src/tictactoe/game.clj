@@ -18,8 +18,6 @@
   (if (= current-player (first players)) (second players) (first players)))
 
 (defn game-loop[new-board players]
-  (println players)
-
   (loop [board new-board current-player (first players)]
     (display-board board)
     (if (game-over? board) board
