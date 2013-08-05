@@ -7,28 +7,26 @@
 (def game-types-str "1 - Human vs Computer\n2 - Computer vs Human\n3 - Human vs Human\n4 - Computer vs Computer")
 
 (defn display-board[board]
+  (println)
   (doseq [row (partition (board-size board) (replace-nil-with-number board))]
     (println (str "| " (clojure.string/join " | " row) " |"))))
 
-(defn user-input[]
-  (Integer. (read-line)))
-
 (defn make-move[board player]
-  (println (format "%s, please make a move:" player))
-  (mark-board board (user-input) player))
+  (mark-board board (move player board) (:marker player)))
 
-(defn change-player[current-player]
-  (if (= current-player "X") "O" "X"))
+(defn change-player[players current-player]
+  (if (= current-player (first players)) (second players) (first players)))
 
-(defn game-loop[new-board first-player-value]
-  (loop [board new-board player first-player-value]
+(defn game-loop[new-board players]
+  (println players)
+
+  (loop [board new-board current-player (first players)]
     (display-board board)
     (if (game-over? board) board
-      (recur (make-move board player) (change-player player)))))
+      (recur (make-move board current-player) (change-player players current-player)))))
 
-(defn- create-players[player1 player2]
+(defn create-players[player1 player2]
   [(create-player player1 "X") (create-player player2 "O")])
-
 
 (defn players[]
   (println "Please enter a game type:")
@@ -42,8 +40,7 @@
 
 (defn play[size]
   (println "Welcome to Tic Tac Toe!")
-  (players)
-  (let [board (game-loop (create-board size) "X") winner (winner board)]
+  (let [board (game-loop (create-board size) (players)) winner (winner board)]
     (println (if winner (str winner " wins!") "Draw!"))))
 
 (defn -main [& args]
