@@ -1,53 +1,95 @@
 (ns tictactoe.rules-spec
   (:require [speclj.core :refer :all]
-            [tictactoe.rules :refer :all]))
+    [tictactoe.rules :refer :all]))
 
 (describe "Tic Tac Toe Rules"
 
-(defn player "X")
-(defn opponent "O")
-
-(context "winner"
-  (it "has no winner when the board is empty"
-    (should= nil (winner [nil nil nil nil nil nil nil nil nil])))
+  (context "winner"
+    (it "has no winner when the board is empty"
+      (should= nil (winner [nil nil nil
+                            nil nil nil
+                            nil nil nil])))
 
   (context "wins horizontally"
-    (it "is nil when players mark two squares in each row"
-      (should= nil (winner [player player nil nil opponent opponent player player nil])))
-    (it "is the player when player marks the whole first row"
-      (should= player (winner [player player player nil nil nil nil nil nil])))
-    (it "is the player when player marks the whole second row"
-      (should= player (winner [nil nil nil player player player nil nil nil])))
-    (it "is the opponent when opponent marks the whole third row"
-      (should= opponent (winner [nil nil nil nil nil nil opponent opponent opponent]))))
+    (it "is nil when xs mark two squares in each row"
+      (should= nil (winner [ x   x  nil
+                            nil  o   o
+                             x   x   nil])))
+
+    (it "is the x when x marks the whole first row"
+      (should= x (winner [ x   x   x
+                          nil nil nil
+                          nil nil nil])))
+
+    (it "is the x when x marks the whole second row"
+      (should= x (winner [nil nil nil
+                           x   x   x
+                          nil nil nil])))
+
+    (it "is the o when o marks the whole third row"
+      (should= o (winner [nil nil nil
+                          nil nil nil
+                           o   o   o]))))
 
   (context "wins vertically"
-    (it "is nil when players mark two squares in each column"
-      (should= nil (winner [player opponent nil player opponent player nil nil player])))
-    (it "is the opponent when opponent marks the whole first column"
-      (should= opponent (winner [opponent nil nil opponent nil nil opponent nil nil])))
-    (it "is the player when player marks the whole second column"
-      (should= player (winner [nil player nil nil player nil nil player nil])))
-    (it "is the opponent when opponent marks the whole third column"
-      (should= opponent (winner [nil nil opponent nil nil opponent nil nil opponent]))))
+    (it "is nil when xs mark two squares in each column"
+      (should= nil (winner [ x   o  nil
+                             x   o   x
+                            nil nil  x])))
+
+    (it "is the o when o marks the whole first column"
+      (should= o (winner [o nil nil
+                          o nil nil
+                          o nil nil])))
+
+    (it "is the x when x marks the whole second column"
+      (should= x (winner [nil x nil
+                          nil x nil
+                          nil x nil])))
+
+    (it "is the o when o marks the whole third column"
+      (should= o (winner [nil nil o
+                          nil nil o
+                          nil nil o]))))
 
   (context "wins diagonally"
-    (it "is nil when player marks two of the diagonal squares"
-      (should= nil (winner [nil nil nil nil player nil player nil player])))
-    (it "is the opponent when opponent marks the diagonal squares from left to right"
-      (should= opponent (winner [opponent nil nil nil opponent nil nil nil opponent])))
-    (it "is the player when player marks the diagonal squares from right to left"
-      (should= player (winner [nil nil player nil player nil player nil nil])))))
+    (it "is nil when x marks two of the diagonal squares"
+      (should= nil (winner [nil nil nil
+                            nil  x  nil
+                            x   nil  x ])))
 
-  (it "it nil when there is a draw"
-    (should= nil (winner [opponent player opponent opponent player opponent player opponent player])))
+    (it "is the o when o marks the diagonal squares from left to right"
+      (should= o (winner [ o  nil nil
+                          nil  o  nil
+                          nil nil o])))
 
-(context "game over"
-  (it "is not over when the board is empty"
-    (should= false (game-over? [nil nil nil nil nil nil nil nil nil])))
-  (it "is not over when the board has marks but there is no winner"
-    (should= false (game-over? [nil player nil nil nil nil nil nil nil])))
-  (it "is over when the board is full and there is no winner (draw)"
-    (should= true (game-over? [player opponent player player player opponent opponent player opponent])))
-  (it "is over when there is a winner and the board is not full"
-    (should= true (game-over? [player player player nil nil nil nil nil nil])))))
+    (it "is the x when x marks the diagonal squares from right to left"
+      (should= x (winner [nil nil  x
+                          nil  x  nil
+                           x  nil nil]))))
+
+    (it "it nil when there is a draw"
+      (should= nil (winner [o x o
+                            o x o
+                            x o x]))))
+
+  (context "game over"
+    (it "is not over when the board is empty"
+      (should= false (game-over? [nil nil nil
+                                  nil nil nil
+                                  nil nil nil])))
+
+    (it "is not over when the board has marks but there is no winner"
+      (should= false (game-over? [nil  x  nil
+                                  nil nil nil
+                                  nil nil nil])))
+
+    (it "is over when the board is full and there is no winner (draw)"
+      (should= true (game-over? [x o x
+                                 x x o
+                                 o x o])))
+
+    (it "is over when there is a winner and the board is not full"
+      (should= x  (game-over? [x   x   x
+                                 nil nil nil
+                                 nil nil nil])))))
