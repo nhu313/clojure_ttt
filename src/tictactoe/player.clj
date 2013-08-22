@@ -2,31 +2,6 @@
   (:require [tictactoe.board :refer :all]
             [tictactoe.rules :refer :all]))
 
-(defprotocol Player
-  (marker [this])
-  (move [this board]))
-
-(defrecord Human [marker]
-  Player
-  (marker [this] (:marker this))
-  (move [this board]))
-
-(defrecord Computer [marker]
-  Player
-  (marker [this] (:marker this))
-  (move [this board]))
-
-(defn create-player [type marker]
-  (case type
-    :human (tictactoe.player.Human. marker)
-    :computer (tictactoe.player.Computer. marker)))
-
-(defmulti move (fn[this board] (str (type this))))
-
-(defmethod move "class tictactoe.player.Human" [this board]
-  (println (str (:marker this) ", please make a move:"))
-  (Integer. (read-line)))
-
 (defn opponent [player]
   (if (= x player) o x))
 
@@ -50,5 +25,30 @@
   (best-move (map (fn[move] [move (score-move (mark-board board move player) player depth negamax)])
                   (available-moves board))))
 
-(defmethod move "class tictactoe.player.Computer" [this board]
-  (first (negamax board (:marker this) 0)))
+(defprotocol Player
+  (marker [this])
+  (move [this board]))
+
+(defrecord Computer [marker]
+  Player
+  (marker [this] (:marker this))
+  (move [this board]
+    (first (negamax board (:marker this) 0))))
+
+(defrecord Human [marker]
+  Player
+  (marker [this] (:marker this))
+  (move [this board]
+    (println (str (:marker this) ", please make a move:"))
+    (Integer. (read-line))))
+
+(defn create-player [type marker]
+  (case type
+    :human (tictactoe.player.Human. marker)
+    :computer (tictactoe.player.Computer. marker)))
+
+; (defmulti move (fn[this board] (str (type this))))
+
+
+; (defmethod move "class tictactoe.player.Computer" [this board]
+;   (first (negamax board (:marker this) 0)))
