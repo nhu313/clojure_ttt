@@ -27,7 +27,7 @@
   (println (str (:marker this) ", please make a move:"))
   (Integer. (read-line)))
 
-(defn opponent[player]
+(defn opponent [player]
   (if (= x player) o x))
 
 (defn negamax-score [board player]
@@ -37,14 +37,15 @@
       (= w nil) 0
       :else -100)))
 
-(defn best-move[moves]
+(defn best-move [moves]
   (first (sort #(> (last %1) (last %2)) moves)))
 
-(defn score-move[board player depth func]
+(defn score-move [board player depth func]
   (if (game-over? board)
     (- (negamax-score board player) depth)
     (- 0 (last (func board (opponent player) (inc depth))))))
 
+; Not sure what to do here. Exctracting the function means I have to pass in a bunch of parameters T.T
 (defn negamax[board player depth]
   (best-move (map (fn[move] [move (score-move (mark-board board move player) player depth negamax)])
                   (available-moves board))))
