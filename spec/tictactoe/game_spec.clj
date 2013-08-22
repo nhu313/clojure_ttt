@@ -33,17 +33,13 @@
 
 (context "display board"
   (it "shows numbers for all unmarked squares"
-    (test-display-board "\n| 0 | 1 |
-                         \n| 2 | 3 |\n" (create-board 2)))
+    (test-display-board "\n| 0 | 1 |\n| 2 | 3 |\n" (create-board 2)))
 
   (it "shows value for the square that is marked"
-    (test-display-board "\n| 0 | O |
-                         \n| X | 3 |\n" [nil player2 player1 nil]))
+    (test-display-board "\n| 0 | O |\n| X | 3 |\n" [nil player2 player1 nil]))
 
   (it "prints 3x3 board"
-    (test-display-board "\n| 0 | 1 | 2 |
-                         \n| 3 | 4 | 5 |
-                         \n| 6 | 7 | 8 |\n" (create-board 3))))
+    (test-display-board "\n| 0 | 1 | 2 |\n| 3 | 4 | 5 |\n| 6 | 7 | 8 |\n" (create-board 3))))
 
 (context "starts game"
   (it "displays a welcome message"
@@ -65,9 +61,7 @@
       (should= draw-board (game-loop draw-board player1)))
 
   (it "prints the board"
-    (test-output-string "| 0 | 1 | 2 |
-                       \n| 3 | 4 | 5 |
-                       \n| 6 | 7 | 8 |\n" game-loop draw-board player1))
+    (test-output-string "| 0 | 1 | 2 |\n| 3 | 4 | 5 |\n| 6 | 7 | 8 |\n" game-loop draw-board player1))
 
   (it "marks the board with player move"
     (let [expected-board [player1 player1 player1

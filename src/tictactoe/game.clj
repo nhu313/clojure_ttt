@@ -1,7 +1,7 @@
 (ns tictactoe.game
-  (:require [tictactoe.rules :refer :all]
-            [tictactoe.board :refer :all]
-            [tictactoe.player :refer :all]))
+  (:require [tictactoe.rules :as rules]
+            [tictactoe.board :as board]
+            [tictactoe.player :as player]))
 
 (def default-board-size 3)
 
@@ -9,11 +9,11 @@
 
 (defn display-board [board]
   (println)
-  (doseq [row (partition (board-size board) (replace-nil-with-index board))]
+  (doseq [row (partition (board/board-size board) (board/replace-nil-with-index board))]
     (println (str "| " (clojure.string/join " | " row) " |"))))
 
 (defn make-move [board player]
-  (mark-board board (move player board) (:marker player)))
+  (board/mark-board board (player/move player board) (:marker player)))
 
 (defn change-player [players current-player]
   (if (= current-player (first players))
@@ -24,13 +24,13 @@
   (loop [board new-board
          current-player (first players)]
     (display-board board)
-    (if (game-over? board)
+    (if (rules/game-over? board)
         board
         (recur (make-move board current-player)
                (change-player players current-player)))))
 
 (defn create-players [player1 player2]
-  [(create-player player1 x) (create-player player2 o)])
+  [(player/create-player player1 rules/x) (player/create-player player2 rules/o)])
 
 (defn players []
   (println "Please enter a game type:")
@@ -44,8 +44,8 @@
 
 (defn play [size]
   (println "Welcome to Tic Tac Toe!")
-  (let [board (game-loop (create-board size) (players))
-        winner (winner board)]
+  (let [board (game-loop (board/create-board size) (players))
+        winner (rules/winner board)]
     (println (if winner (str winner " wins!") "Draw!"))))
 
 (defn -main [& args]
