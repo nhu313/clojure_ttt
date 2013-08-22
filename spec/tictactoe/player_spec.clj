@@ -1,11 +1,10 @@
 (ns tictactoe.player-spec
   (:require [speclj.core :refer :all]
-    [tictactoe.player :refer :all]))
+    [tictactoe.player :refer :all]
+    [tictactoe.rules :refer [x o]]
+    ))
 
 (describe "Player"
-(def x "X")
-(def o "O")
-
   (context "human"
     (def human (create-player :human x))
 
