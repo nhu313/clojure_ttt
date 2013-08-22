@@ -1,4 +1,5 @@
-(ns tictactoe.rules)
+(ns tictactoe.rules
+  (:require [tictactoe.board :refer :all ]))
 
 (def x "X")
 (def o "O")

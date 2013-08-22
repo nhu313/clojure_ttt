@@ -1,5 +1,4 @@
-(ns tictactoe.board
-  (:require [tictactoe.rules :refer :all ]))
+(ns tictactoe.board)
 
 (defn create-board [size]
   (vec (repeat (* size size) nil)))
