@@ -6,13 +6,13 @@
 
   (context "winner"
     (it "has no winner when the board is empty"
-      (should= nil (winner [nil nil nil
+      (should-be-nil (winner [nil nil nil
                             nil nil nil
                             nil nil nil])))
 
   (context "wins horizontally"
     (it "is nil when xs mark two squares in each row"
-      (should= nil (winner [ x   x  nil
+      (should-be-nil (winner [ x   x  nil
                             nil  o   o
                              x   x   nil])))
 
@@ -33,7 +33,7 @@
 
   (context "wins vertically"
     (it "is nil when xs mark two squares in each column"
-      (should= nil (winner [ x   o  nil
+      (should-be-nil (winner [ x   o  nil
                              x   o   x
                             nil nil  x])))
 
@@ -54,7 +54,7 @@
 
   (context "wins diagonally"
     (it "is nil when x marks two of the diagonal squares"
-      (should= nil (winner [nil nil nil
+      (should-be-nil (winner [nil nil nil
                             nil  x  nil
                             x   nil  x ])))
 
@@ -69,23 +69,23 @@
                            x  nil nil]))))
 
     (it "it nil when there is a draw"
-      (should= nil (winner [o x o
+      (should-be-nil (winner [o x o
                             o x o
                             x o x]))))
 
   (context "game over"
     (it "is not over when the board is empty"
-      (should= false (game-over? [nil nil nil
+        (should-not (game-over? [nil nil nil
                                   nil nil nil
                                   nil nil nil])))
 
     (it "is not over when the board has marks but there is no winner"
-      (should= false (game-over? [nil  x  nil
+        (should-not (game-over? [nil  x  nil
                                   nil nil nil
                                   nil nil nil])))
 
     (it "is over when the board is full and there is no winner (draw)"
-      (should= true (game-over? [x o x
+      (should (game-over? [x o x
                                  x x o
                                  o x o])))
 

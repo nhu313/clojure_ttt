@@ -18,11 +18,11 @@
 
   (defn test-output-string
     ([expected func]
-    (should= true (.contains (with-out-str (func)) expected)))
+    (should (.contains (with-out-str (func)) expected)))
     ([expected func args]
-    (should= true (.contains (with-out-str (func args)) expected)))
+    (should (.contains (with-out-str (func args)) expected)))
     ([expected func arg1 arg2]
-    (should= true (.contains (with-out-str (func arg1 arg2)) expected))))
+    (should (.contains (with-out-str (func arg1 arg2)) expected))))
 
   (defn test-display-board [expected board]
     (should= expected (with-out-str (display-board board))))
