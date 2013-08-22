@@ -11,7 +11,7 @@
       (should= x (:marker human)))
 
     (it "returns user move"
-        (with-redefs [read-line (constantly "3") println (constantly "")]
+        (with-redefs [read (constantly "3") println (constantly "")]
           (should= 3 (move human nil)))))
 
     (context "computer"

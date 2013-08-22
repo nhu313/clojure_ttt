@@ -39,7 +39,7 @@
   Player
   (marker [this] (:marker this))
   (move [this board]
-    (Integer. (read-line))))
+    (Integer. (read))))
 
 (defn create-player [type marker]
   (case type

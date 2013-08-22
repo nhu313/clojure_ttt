@@ -13,8 +13,12 @@
     (println (str "| " (clojure.string/join " | " row) " |"))))
 
 (defn make-move [board player]
-  (println (str (:marker player) ", please makes a move:"))
-  (board/mark-board board (player/move player board) (:marker player)))
+  (try
+    (println (str (:marker player) ", please makes a move:"))
+    (board/mark-board board (player/move player board) (:marker player))
+    (catch Exception e
+      (println "That is not a valid move.")
+      (make-move board player))))
 
 (defn change-player [players current-player]
   (if (= current-player (first players))

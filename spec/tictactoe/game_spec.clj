@@ -117,12 +117,19 @@
     (let [players (create-players :human :human)]
       (should= (first players) (change-player players (second players))))))
 
+(def human (create-player :human "X"))
+
 (context "make player move"
-         (it "asks player to make a move"
-             (with-redefs [read-line (constantly "3")]
-               (let [player (create-player :human "X")]
-                 (test-output-string "X, please makes a move:" make-move empty-board player))))
-         )
+  (it "asks player to make a move"
+    (with-redefs [read (constantly "3")]
+      (test-output-string "X, please makes a move:" make-move empty-board human)))
 
+  (it "notifies player if player chooses a move not available"
+    (should (.contains (with-out-str (with-in-str "13\n2" (make-move empty-board human)))
+                       "That is not a valid move.")))
 
-      )
+   (it "asks player to make a move again if user enter a bad move"
+     (should= "X, please makes a move:\nThat is not a valid move.\nX, please makes a move:\n"
+              (with-out-str (with-in-str "13\n2" (make-move empty-board human))))))
+
+)
