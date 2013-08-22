@@ -3,18 +3,18 @@
             [tictactoe.rules :refer :all]))
 
 (defprotocol Player
-	(marker [this])
-	(move [this board]))
+  (marker [this])
+  (move [this board]))
 
 (defrecord Human [marker]
-	Player
-	(marker [this] (:marker this))
-	(move [this board]))
+  Player
+  (marker [this] (:marker this))
+  (move [this board]))
 
 (defrecord Computer [marker]
-	Player
-	(marker [this] (:marker this))
-	(move [this board]))
+  Player
+  (marker [this] (:marker this))
+  (move [this board]))
 
 (defn create-player [type marker]
   (case type
