@@ -19,9 +19,6 @@
 (defn winner [board]
   (some #(winner-in-set board %) win-square-sets))
 
-(defn draw?[board]
-  (every? (fn[item] (not (nil? item))) board))
-
 (defn game-over? [board]
   (or (winner board)
-    (draw? board)))
+    (full? board)))
