@@ -24,7 +24,7 @@
       (recur (make-move board current-player) (change-player players current-player)))))
 
 (defn create-players[player1 player2]
-  [(create-player player1 "X") (create-player player2 "O")])
+  [(create-player player1 x) (create-player player2 o)])
 
 (defn players[]
   (println "Please enter a game type:")

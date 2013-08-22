@@ -28,10 +28,10 @@
   (Integer. (read-line)))
 
 (defn opponent[player]
-  (if (= "X" player) "O" "X"))
+  (if (= x player) o x))
 
 (defn negamax-score [board player]
-  (let [w (winner board) p "O"]
+  (let [w (winner board)]
     (cond
       (= w player) 100
       (= w nil) 0
