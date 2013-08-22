@@ -1,5 +1,5 @@
 (ns tictactoe.rules
-  (:require [tictactoe.board :refer :all ]))
+  (:require [tictactoe.board :as board]))
 
 (def x "X")
 (def o "O")
@@ -21,4 +21,4 @@
 
 (defn game-over? [board]
   (or (winner board)
-    (full? board)))
+    (board/full? board)))

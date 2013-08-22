@@ -1,8 +1,9 @@
 (ns tictactoe.game-spec
   (:require [speclj.core :refer :all]
-            [tictactoe.board :refer :all]
-            [tictactoe.player :refer :all]
-            [tictactoe.game :refer :all]))
+            [tictactoe.game :refer :all]
+            [tictactoe.board :refer [create-board]]
+            [tictactoe.player :refer [create-player]]
+            ))
 
 (describe "Tic Tac Toe Game"
 (def player1 "X")
@@ -22,10 +23,10 @@
     ([expected func arg1 arg2]
     (should= true (.contains (with-out-str (func arg1 arg2)) expected))))
 
-  (defn test-display-board[expected board]
+  (defn test-display-board [expected board]
     (should= expected (with-out-str (display-board board))))
 
-  (defn test-play-message[expected-str board]
+  (defn test-play-message [expected-str board]
     (with-redefs [game-loop (constantly board) players (constantly "")]
       (test-output-string expected-str play default-board-size)))
 
@@ -79,7 +80,7 @@
       (test-output-string "1 - Human vs Computer\n2 - Computer vs Human\n3 - Human vs Human\n4 - Computer vs Computer"
                           play default-board-size)))
 
-  (defn test-create-players[game-type player1 player2]
+  (defn test-create-players [game-type player1 player2]
       (should= [(create-player player1 "X") (create-player player2 "O")] (with-in-str game-type (players))))
 
   (it "returns human and computer players when user enters 1"
