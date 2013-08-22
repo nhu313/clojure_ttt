@@ -71,7 +71,7 @@
                        nil    nil     nil
                        nil    nil     nil]]
       (should= expected-board
-          (with-in-str "0\n" (game-loop input-board (create-players :human :human))))))
+          (with-in-str "0\n" (game-loop input-board (create-players [:human :human]))))))
 
   (it "marks player 2 moves after player 1 moves"
     (let [expected-board [player1 player2 player2
@@ -81,13 +81,13 @@
           input-board    [player1 player2 player2
                           player2 player1 player2
                           player1   nil    nil]
-         players (create-players :human :human)]
+         players (create-players [:human :human])]
         (should= expected-board (with-in-str "7\n8\n" (game-loop input-board players))))))
 
 (context "create players"
   (it "displays game types"
     (with-redefs [game-loop (constantly empty-board) read-line (constantly "1")]
-      (test-output-string "1 - Human vs Computer\n2 - Computer vs Human\n3 - Human vs Human\n4 - Computer vs Computer"
+      (test-output-string " 1 - Human vs Computer\n 2 - Computer vs Human\n 3 - Human vs Human\n 4 - Computer vs Computer"
                           play default-board-size)))
 
   (defn test-create-players [game-type player1 player2]
@@ -110,11 +110,11 @@
 
 (context "change players"
   (it "should change to player 2 when current player is player 1"
-    (let [players (create-players :human :human)]
+    (let [players (create-players [:human :human])]
       (should= (second players) (change-player players (first players)))))
 
   (it "should change to player 1 when current player is player 2"
-    (let [players (create-players :human :human)]
+    (let [players (create-players [:human :human])]
       (should= (first players) (change-player players (second players))))))
 
 (def human (create-player :human "X"))

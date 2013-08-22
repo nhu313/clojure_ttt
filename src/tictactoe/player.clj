@@ -22,7 +22,9 @@
 
 ; Not sure what to do here. Exctracting the function means I have to pass in a bunch of parameters T.T
 (defn negamax[board player depth]
-  (best-move (map (fn[move] [move (score-move (board/mark-board board move player) player depth negamax)])
+  (best-move (map (fn[move]
+                    (let [marked-board (board/mark-board board move player)]
+                         [move (score-move marked-board player depth negamax)]))
                   (board/available-moves board))))
 
 (defprotocol Player

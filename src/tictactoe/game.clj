@@ -5,7 +5,13 @@
 
 (def default-board-size 3)
 
-(def game-types-str "1 - Human vs Computer\n2 - Computer vs Human\n3 - Human vs Human\n4 - Computer vs Computer")
+(def game-types [[:human :computer] [:computer :human] [:human :human] [:computer :computer]])
+
+(defn- player-str [player]
+  (if (= player :human) "Human" "Computer"))
+
+(defn game-types-str []
+  (map-indexed (fn [i item] (str (+ i 1) " - " (player-str (first item)) " vs "(player-str (last item)) "\n")) game-types))
 
 (defn display-board [board]
   (println)
@@ -34,19 +40,23 @@
         (recur (make-move board current-player)
                (change-player players current-player)))))
 
-(defn create-players [player1 player2]
-  [(player/create-player player1 rules/x)
-   (player/create-player player2 rules/o)])
+(defn create-players [players]
+  [(player/create-player (first players) rules/x)
+   (player/create-player (last players) rules/o)])
+
+(defn- read-game-type []
+  (println "Please enter a game type:")
+  (- (Integer. (read-line)) 1))
 
 (defn players []
-  (println "Please enter a game type:")
-  (println game-types-str)
-  (case (read-line)
-    "1" (create-players :human :computer)
-    "2" (create-players :computer :human)
-    "3" (create-players :human :human)
-    "4" (create-players :computer :computer)
-    (players)))
+  (print " ")
+  (apply println (game-types-str))
+  (try
+    (let [players (nth game-types (read-game-type))]
+      (create-players players))
+    (catch Exception e
+      (println "That is not a valid game type.")
+      (players))))
 
 (defn play [size]
   (println "Welcome to Tic Tac Toe!")

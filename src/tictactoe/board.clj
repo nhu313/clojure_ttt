@@ -17,7 +17,7 @@
     (throw (new IllegalArgumentException))))
 
 (defn full? [board]
-  (every? (fn[item] (not (nil? item))) board))
+  (every? identity board))
 
 (defn replace-nil-with-index [board]
   (map-indexed (fn [i item] (if item item i)) board))
