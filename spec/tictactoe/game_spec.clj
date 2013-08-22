@@ -115,4 +115,14 @@
 
   (it "should change to player 1 when current player is player 2"
     (let [players (create-players :human :human)]
-      (should= (first players) (change-player players (second players)))))))
+      (should= (first players) (change-player players (second players))))))
+
+(context "make player move"
+         (it "asks player to make a move"
+             (with-redefs [read-line (constantly "3")]
+               (let [player (create-player :human "X")]
+                 (test-output-string "X, please makes a move:" make-move empty-board player))))
+         )
+
+
+      )

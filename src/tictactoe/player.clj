@@ -39,7 +39,6 @@
   Player
   (marker [this] (:marker this))
   (move [this board]
-    (println (str (:marker this) ", please make a move:"))
     (Integer. (read-line))))
 
 (defn create-player [type marker]

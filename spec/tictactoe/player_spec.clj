@@ -10,13 +10,9 @@
     (it "marker is the value passed in"
       (should= x (:marker human)))
 
-    (it "asks player for a move"
-      (with-redefs [read-line (constantly "0")]
-        (should= true (.contains (with-out-str (move human nil)) "X, please make a move:")))
-
     (it "returns user move"
-      (with-redefs [read-line (constantly "3") println (constantly "")]
-        (should= 3 (move human nil))))))
+        (with-redefs [read-line (constantly "3") println (constantly "")]
+          (should= 3 (move human nil)))))
 
     (context "computer"
       (def computer (create-player :computer o))

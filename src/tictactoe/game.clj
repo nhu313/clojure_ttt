@@ -13,6 +13,7 @@
     (println (str "| " (clojure.string/join " | " row) " |"))))
 
 (defn make-move [board player]
+  (println (str (:marker player) ", please makes a move:"))
   (board/mark-board board (player/move player board) (:marker player)))
 
 (defn change-player [players current-player]
