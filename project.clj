@@ -1,7 +1,6 @@
-(defproject roman-numerals "0.1.0-SNAPSHOT"
+(defproject tictactoe "0.1.0-SNAPSHOT"
   :main tictactoe.game
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "Simple Tic Tac Toe with AI"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.4.0"]]
