@@ -35,7 +35,8 @@
                (change-player players current-player)))))
 
 (defn create-players [player1 player2]
-  [(player/create-player player1 rules/x) (player/create-player player2 rules/o)])
+  [(player/create-player player1 rules/x)
+   (player/create-player player2 rules/o)])
 
 (defn players []
   (println "Please enter a game type:")
