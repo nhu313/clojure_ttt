@@ -3,6 +3,9 @@
     [tictactoe.player :refer :all]))
 
 (describe "Player"
+(def x "X")
+(def o "O")
+
   (context "human"
     (def human (create-player :human x))
 

@@ -46,9 +46,3 @@
   (case type
     :human (tictactoe.player.Human. marker)
     :computer (tictactoe.player.Computer. marker)))
-
-; (defmulti move (fn[this board] (str (type this))))
-
-
-; (defmethod move "class tictactoe.player.Computer" [this board]
-;   (first (negamax board (:marker this) 0)))
