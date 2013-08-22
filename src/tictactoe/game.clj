@@ -9,7 +9,7 @@
 
 (defn display-board [board]
   (println)
-  (doseq [row (partition (board-size board) (replace-nil-with-number board))]
+  (doseq [row (partition (board-size board) (replace-nil-with-index board))]
     (println (str "| " (clojure.string/join " | " row) " |"))))
 
 (defn make-move [board player]

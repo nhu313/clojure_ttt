@@ -13,8 +13,8 @@
 (defn full? [board]
     (every? (fn[item] (not (nil? item))) board))
 
-(defn replace-nil-with-number[board]
+(defn replace-nil-with-index [board]
   (map-indexed (fn [i item] (if item item i)) board))
 
 (defn available-moves [board]
-  (filter number? (replace-nil-with-number board)))
+  (filter number? (replace-nil-with-index board)))
