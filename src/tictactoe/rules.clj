@@ -9,7 +9,7 @@
 (defn- winner? [board squares]
   (and
     (board (first squares))
-    (apply = (map #(board %) squares))))
+    (apply = (map board squares))))
 
 (defn- winner-in-set [board squares]
   (if (winner? board squares)
@@ -22,6 +22,5 @@
   (every? (fn[item] (not (nil? item))) board))
 
 (defn game-over? [board]
-  (if (winner board)
-    true
+  (or (winner board)
     (draw? board)))
