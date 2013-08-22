@@ -16,10 +16,11 @@
     (should= [nil player1 nil nil] (mark-board empty-board 1 player1)))
 
   (it "marks a square that is already marked"
-      )
-    ; (it "gives an input that is smaller than the first square")
-    ; (it "gives an input that is greater than the last square")
-    )
+      (should-throw IllegalArgumentException (mark-board full-board 1 player1)))
+  (it "gives an input that is smaller than the first square"
+      (should-throw IllegalArgumentException (mark-board empty-board -1 player1)))
+  (it "gives an input that is greater than the last square"
+      (should-throw IllegalArgumentException (mark-board empty-board 9 player1))))
 
 (context "full"
   (it "is not full when it is empty"
