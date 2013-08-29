@@ -7,7 +7,7 @@
   (int (java.lang.Math/sqrt (count board))))
 
 (defn- available? [board move]
-  (if (or (< move 0) (> move 8))
+  (if (or (< move 0) (>= move (count board)))
     false
     (not (nth board move))))
 
