@@ -4,8 +4,10 @@
 (def x "X")
 (def o "O")
 
-(def win-square-sets
-  [[0 1 2], [3 4 5], [6 7 8], [0 3 6], [1 4 7], [2 5 8], [0 4 8], [2 4 6]])
+(defn winning-square-sets [board]
+  (reduce into [(board/rows board)
+               (board/cols board)
+               (board/diagonals board)]))
 
 (defn- winner? [board squares]
   (and
@@ -13,11 +15,11 @@
     (apply = (map board squares))))
 
 (defn- winner-in-set [board squares]
-  (if (winner? board squares)
-    (board (first squares))))
+  (let [marker (first squares)]
+    (if (every? #(= marker %) squares) marker nil)))
 
 (defn winner [board]
-  (some #(winner-in-set board %) win-square-sets))
+  (some #(winner-in-set board %) (winning-square-sets board)))
 
 (defn game-over? [board]
   (or (winner board)

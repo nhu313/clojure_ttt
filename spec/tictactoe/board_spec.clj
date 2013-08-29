@@ -44,3 +44,15 @@
 
   (it "is nothing when the board is full"
     (should= (list) (available-moves full-board))))
+
+(context "sets"
+  (it "returns rows values"
+    (should= ['(0 1 2) '(3 4 5) '(6 7 8)] (rows (take 9 (range)))))
+
+  (it "returns columns values"
+    (should= ['(0 3 6) '(1 4 7) '(2 5 8)] (cols [0 1 2 3 4 5 6 7 8])))
+
+  (it "returns diagonals values"
+    (should= ['("a" "d" "h") '("b" "d" "f")] (diagonals ["a" nil "b"
+                                                         "c" "d" "e"
+                                                         "f" "g" "h"]))))
