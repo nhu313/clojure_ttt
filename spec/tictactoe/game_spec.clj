@@ -125,11 +125,11 @@
       (test-output-string "X, please makes a move:" make-move empty-board human)))
 
   (it "notifies player if player chooses a move not available"
-    (should (.contains (with-out-str (with-in-str "13\n2" (make-move empty-board human)))
+    (should (.contains (with-out-str (with-in-str "99\n2" (make-move empty-board human)))
                        "That is not a valid move.")))
 
    (it "asks player to make a move again if user enter a bad move"
      (should= "X, please makes a move:\nThat is not a valid move.\nX, please makes a move:\n"
-              (with-out-str (with-in-str "13\n2" (make-move empty-board human))))))
+              (with-out-str (with-in-str "99\n2" (make-move empty-board human))))))
 
 )
