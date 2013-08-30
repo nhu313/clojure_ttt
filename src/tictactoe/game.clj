@@ -3,7 +3,7 @@
             [tictactoe.board :as board]
             [tictactoe.player :as player]))
 
-(def default-board-size 4)
+(def default-board-size 3)
 
 (def game-types [[:human :computer] [:computer :human] [:human :human] [:computer :computer]])
 
