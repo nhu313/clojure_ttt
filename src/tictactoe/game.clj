@@ -10,8 +10,11 @@
 (defn- player-str [player]
   (if (= player :human) "Human" "Computer"))
 
+(defn single-game-type-str [item-index players]
+  (str (+ item-index 1) " - " (player-str (first players)) " vs "(player-str (last players)) "\n"))
+
 (defn game-types-str []
-  (map-indexed (fn [i item] (str (+ i 1) " - " (player-str (first item)) " vs "(player-str (last item)) "\n")) game-types))
+  (map-indexed single-game-type-str game-types))
 
 (defn display-board [board]
   (println)
